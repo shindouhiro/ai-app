@@ -1,0 +1,42 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Web Assets
+        run: npm run build
+
+      - name: Build Android APK with Tauri Action
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: "App Release v__VERSION__"
+          releaseBody: "Automated Android APK build"
+          releaseDraft: true
+          prerelease: false
+          # 注意：tauri-action 通常用于 Tauri 项目。
+          # 既然你提到了 auri-action (可能是 tauri-action 的误写)，
+          # 这里配置的是基于 Tauri 的移动端打包流程。
+          # 如果你的项目不是 Tauri 项目，建议使用专业的 uniapp/hbuilder 命令行工具打包。
