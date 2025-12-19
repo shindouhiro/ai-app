@@ -51,15 +51,16 @@ jobs:
       - name: Build Web Assets
         run: npm run build
 
-      - name: Build Android APK with Tauri Action
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Initialize Tauri Android
+        run: |
+          npm run tauri android init || echo "Android already initialized"
+
+      - name: Build Android APK
+        run: npm run tauri android build
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          tagName: v__VERSION__
-          releaseName: "App Release v__VERSION__"
-          releaseBody: "Automated Android APK build"
-          releaseDraft: true
-          prerelease: false
-          # 指定构建 Android 目标
-          args: --target android
+          name: android-apk
+          path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
