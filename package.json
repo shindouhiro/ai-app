@@ -32,6 +32,8 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "terser": "^5.44.1",
     "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "@tauri-apps/api": "latest",
+    "@tauri-apps/cli": "latest"
   }
 }
