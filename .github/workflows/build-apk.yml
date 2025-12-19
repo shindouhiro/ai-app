@@ -37,7 +37,5 @@ jobs:
           releaseBody: "Automated Android APK build"
           releaseDraft: true
           prerelease: false
-          # 注意：tauri-action 通常用于 Tauri 项目。
-          # 既然你提到了 auri-action (可能是 tauri-action 的误写)，
-          # 这里配置的是基于 Tauri 的移动端打包流程。
-          # 如果你的项目不是 Tauri 项目，建议使用专业的 uniapp/hbuilder 命令行工具打包。
+          # 指定构建 Android 目标
+          args: --target android
